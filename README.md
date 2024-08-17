@@ -61,10 +61,10 @@ import { DesktopStrategy } from './devices/DesktopStrategy.js';
 import { detectarDevice } from './detectarDevice.js';
 import PrecoContext  from './Context.js';
 
-const originalPrice = 100.00; 
-const deviceType = detectarDevice(); 
+const precoOriginal = 100.00; 
+const dispositivo = detectarDevice(); 
 
-const dispositivo ={
+const marcaDispositivo ={
     Apple : new AppleStrategy(),
     Mobile : new AndroidStrategy(),
     Desktop : new DesktopStrategy()
@@ -72,12 +72,13 @@ const dispositivo ={
 
 let strategy;
 
-strategy = dispositivo[deviceType];
+strategy = marcaDispositivo[dispositivo];
 
 const contextodopreco = new PrecoContext(strategy);
-const finalPrice = contextodopreco.calcularPreco(originalPrice);
+const finalPrice = contextodopreco.calcularPreco(precoOriginal);
 
 document.getElementById('final-price').textContent = `R$${finalPrice.toFixed(2)}`;
+
 ```
 ## Importância e Usabilidade
 O padrão Strategy é extremamente útil em cenários onde diferentes algoritmos ou comportamentos precisam ser aplicados em diferentes situações, como no caso deste exemplo de precificação dinâmica. A separação clara dos algoritmos em classes distintas permite fácil manutenção e escalabilidade do código, especialmente em aplicações complexas.
