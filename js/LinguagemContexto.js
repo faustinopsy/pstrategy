@@ -1,4 +1,4 @@
-export default class PrecoContext {
+export default class LinguagemContexto {
     constructor(strategy) {
         this.strategy = strategy;
     }
@@ -7,7 +7,7 @@ export default class PrecoContext {
         this.strategy = strategy;
     }
 
-    calcularPreco(price) {
-        return this.strategy.calcular(price);
+    aplicarLinguagem(jsonData) {
+        this.strategy.aplicarLinguagem(jsonData);
     }
 }

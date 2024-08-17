@@ -1,23 +1,47 @@
-import { AndroidStrategy } from './devices/AndroidStrategy.js';
-import { AppleStrategy } from './devices/AppleStrategy.js';
-import { DesktopStrategy } from './devices/DesktopStrategy.js';
-import { detectarDevice } from './detectarDevice.js';
-import PrecoContext  from './Context.js';
+import { PortuguesStrategy } from './idioma/PortuguesStrategy.js';
+import { InglesStrategy } from './idioma/InglesStrategy.js';
+import { EspanholStrategy} from './idioma/EspanholStrategy.js';
+import { detectarIdioma } from './idioma/detectarIdioma.js';
+import LinguagemContexto  from './LinguagemContexto.js';
+import { conteudoInicial } from './conteudo.js';
 
-const precoOriginal = 100.00; 
-const dispositivo = detectarDevice(); 
+conteudoInicial();
 
-const marcaDispositivo ={
-    Apple : new AppleStrategy(),
-    Mobile : new AndroidStrategy(),
-    Desktop : new DesktopStrategy()
+const context = new LinguagemContexto(null);
+
+function carregarIdioma(lang) {
+    fetch(`js/lang/${lang}.json`)
+        .then(response => response.json())
+        .then(data => {
+            context.aplicarLinguagem(data);
+        });
 }
 
+const lang = detectarIdioma();
 let strategy;
+const idioma = {
+    pt: new PortuguesStrategy(),
+    en: new InglesStrategy(),
+    es: new EspanholStrategy()
+}
 
-strategy = marcaDispositivo[dispositivo];
+strategy = idioma[lang];
 
-const contextodopreco = new PrecoContext(strategy);
-const finalPrice = contextodopreco.calcularPreco(precoOriginal);
+context.setStrategy(strategy);
+carregarIdioma(lang);
 
-document.getElementById('final-price').textContent = `R$${finalPrice.toFixed(2)}`;
+
+document.getElementById('pt-btn').addEventListener('click', () => {
+    context.setStrategy(new PortuguesStrategy());
+    carregarIdioma('pt');
+});
+
+document.getElementById('en-btn').addEventListener('click', () => {
+    context.setStrategy(new InglesStrategy());
+    carregarIdioma('en');
+});
+
+document.getElementById('es-btn').addEventListener('click', () => {
+    context.setStrategy(new EspanholStrategy());
+    carregarIdioma('es');
+});
