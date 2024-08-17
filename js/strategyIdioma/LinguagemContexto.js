@@ -3,7 +3,7 @@ export default class LinguagemContexto {
         this.strategy = strategy;
     }
 
-    setStrategy(strategy) {
+    aplicarStrategy(strategy) {
         this.strategy = strategy;
     }
 
