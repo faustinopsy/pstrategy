@@ -1,4 +1,4 @@
-# Dynamic Pricing Strategy Example
+# Exemplo de preço com o padrão estrategy
 
 Este repositório contém uma implementação do padrão de projeto Strategy em JavaScript, aplicada a um exemplo de precificação dinâmica com base no dispositivo do usuário.
 (outras branches desse projeto contém outros exemplos)
